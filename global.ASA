@@ -1,0 +1,10 @@
+<SCRIPT LANGUAGE="VBScript">
+
+
+Sub Session_Onstart
+
+session.timeout= 480
+
+End Sub
+
+</SCRIPT>
