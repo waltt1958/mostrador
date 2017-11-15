@@ -32,7 +32,7 @@ sqlPOSTAL= "select * from POSTAL order by POSTAL_fecha"
 sqlML= "select * from ML order by ML_fecha"
 
 
-		rsOEP.open sqlOEP,conectarOEP		
+		rsOEP.open sqlOEP,conectarOEP
 
 		If rsOEP.RecordCount = 0 Then
 
@@ -47,7 +47,7 @@ sqlML= "select * from ML order by ML_fecha"
 			If rsOEP.BOF Then
 
 				rsOEP.MoveLast
-	
+
 				rsOEP.AddNew
 				rsOEP("oep_nro") = request.form("OEP")
 				rsOEP("OEP_puesto") = 0
@@ -85,7 +85,7 @@ sqlML= "select * from ML order by ML_fecha"
 
 <%
 
-		rsPOSTAL.open sqlPOSTAL,conectarOEP		
+		rsPOSTAL.open sqlPOSTAL,conectarOEP
 
 		If rsPOSTAL.RecordCount = 0 Then
 
@@ -100,7 +100,7 @@ sqlML= "select * from ML order by ML_fecha"
 			If rsPOSTAL.BOF Then
 
 				rsPOSTAL.MoveLast
-	
+
 				rsPOSTAL.AddNew
 				rsPOSTAL("POSTAL_nro") = request.form("POSTAL")
 				rsPOSTAL("POSTAL_puesto") = 0
@@ -137,7 +137,7 @@ sqlML= "select * from ML order by ML_fecha"
 <%
 
 
-		rsML.open sqlML,conectarOEP		
+		rsML.open sqlML,conectarOEP
 
 		If rsML.RecordCount = 0 Then
 

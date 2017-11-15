@@ -12,22 +12,29 @@ if session ("puesto")<> "" then
 
 Const adOpenDynamic = 2
 Const adLockOptimistic = 3
+
 set conectarOEP = Server.CreateObject("ADODB.Connection")
 
-conectarOEP.Open "DRIVER={Microsoft Access Driver (*.mdb)}; Database Locking Mode=0; DBQ=C:\Inetpub\wwwroot\mostrador\turnero.mdb"
+
+'conectarOEP.open "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\inetpub\wwwroot\mostrador\turnero.mdb"
+
+conectarOEP.Open "DRIVER={Microsoft Access Driver (*.mdb)}; Database Locking Mode=0; DBQ=C:\inetpub\wwwroot\mostrador\turnero.mdb"
+
 
 
 set rsOEP = server.CreateObject ("ADODB.recordset")
-rsOEP.CursorType= AdOpenDynamic
-rsOEP.LockType= adLockOptimistic
+'rsOEP.CursorType= adOpenDynamic
+'rsOEP.LockType= adLockOptimistic
+
 
 set rsPOSTAL = server.CreateObject ("ADODB.recordset")
-rsPOSTAL.CursorType= adOpenDynamic
-rsPOSTAL.LockType= AdLockOptimistic
+'rsPOSTAL.CursorType= adOpenDynamic
+'rsPOSTAL.LockType= AdLockOptimistic
 
 set rsML = server.CreateObject ("ADODB.recordset")
-rsML.CursorType= adOpenDynamic
-rsML.LockType= AdLockOptimistic
+'rsML.CursorType= adOpenDynamic
+'rsML.LockType= AdLockOptimistic
+
 
 sqlOEP= "select * from OEP order by OEP_fecha"
 sqlPOSTAL= "select * from POSTAL order by POSTAL_fecha"
@@ -36,24 +43,24 @@ sqlML= "select * from ML order by ML_fecha"
 if request.form ("turno")= "LLAMAR TURNO" then
 
 select case request.form ("tipoTurno")
+		
 	case "OEP"
-
-		rsOEP.open sqlOEP,conectarOEP		
+	
+		rsOEP.open sqlOEP, conectarOEP, adOpenDynamic, adLockOptimistic
 
 		If rsOEP.RecordCount = 0 Then
 
 			suma = suma + 1
-
+			
 			rsOEP.AddNew
 			rs("oep_nro") = suma
 			rs("OEP_puesto") = session("puesto")
 			rsOEP.Update
 
-
-		Else
-
+			Else
+			
 			If rsOEP.BOF Then
-
+				
 				rsOEP.MoveLast
 	
 				suma = rsOEP("oep_nro")
@@ -64,22 +71,19 @@ select case request.form ("tipoTurno")
 				rsOEP("OEP_puesto") = session("puesto")
 				rsOEP.Update
 
-
-
 			Else
-
+				
 				rsOEP.MoveLast
 
 				suma = rsOEP("oep_nro")
 				suma = suma + 1
-
+				
 				rsOEP.AddNew
 				rsOEP("oep_nro") = suma
 				rsOEP("OEP_puesto") = session("puesto")
 				rsOEP.Update
-
-
-
+				
+				
 			End If
 		End If
 
@@ -106,8 +110,8 @@ select case request.form ("tipoTurno")
 <CENTER><INPUT type="button" value="VOLVER A TURNOS" onclick="cerrar()"></CENTER>
 <%
 	case "POSTAL"
-		rsPOSTAL.open sqlPOSTAL,conectarOEP		
-
+		
+		rsPOSTAL.open sqlPOSTAL,conectarOEP, adOpenDynamic, adLockOptimistic		
 		If rsPOSTAL.RecordCount = 0 Then
 
 			suma = suma + 1
@@ -179,7 +183,7 @@ select case request.form ("tipoTurno")
 
 	case "M. LIBRE"
 
-		rsML.open sqlML,conectarOEP		
+		rsML.open sqlML,conectarOEP, adOpenDynamic, adLockOptimistic		
 
 		If rsML.RecordCount = 0 Then
 
@@ -250,7 +254,7 @@ select case request.form ("tipoTurno")
 
 	case "OEP"
 
-		rsOEP.open sqlOEP,conectarOEP
+		rsOEP.open sqlOEP,conectarOEP, adOpenDynamic, adLockOptimistic
 
 %>
 <br>
@@ -292,7 +296,7 @@ select case request.form ("tipoTurno")
 
 	case "POSTAL"
 
-		rsPOSTAL.open sqlPOSTAL,conectarOEP
+		rsPOSTAL.open sqlPOSTAL,conectarOEP, adOpenDynamic, adLockOptimistic
 
 		If rsPOSTAL.eof Then
 
@@ -329,7 +333,7 @@ select case request.form ("tipoTurno")
 <%
 	case "M. LIBRE"
 
-		rsML.open sqlML,conectarOEP
+		rsML.open sqlML,conectarOEP, adOpenDynamic, adLockOptimistic
 		
 		If rsML.eof Then
 

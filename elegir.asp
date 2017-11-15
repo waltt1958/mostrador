@@ -28,7 +28,9 @@ session("puesto")= replace((request.form("puesto"))," ","")
 </TR>
 
 <TR>
-<TD align="center"><INPUT TYPE="radio" NAME="tipoTurno" VALUE="OEP" checked></TD><TD align="center"><INPUT TYPE="radio" NAME="tipoTurno" VALUE="POSTAL"></TD><TD align="center"><INPUT TYPE="radio" NAME="TipoTurno" VALUE="M. LIBRE"></TD>
+<TD align="center"><input type="radio" name="tipoTurno" value="OEP" checked></TD>
+<TD align="center"><input type="radio" name="tipoTurno" value="POSTAL"></TD>
+<TD align="center"><input type="radio" name="tipoTurno" value="M. LIBRE"></TD>
 </TR>
 
 </TABLE>
